@@ -1,11 +1,12 @@
 import {LoopbackAhaduApplication} from './application';
 import {ApplicationConfig} from '@loopback/core';
-import * as path from 'path';
+import  {MultipartFormDataBodyParser}  from './parser/body.parser'
 
 export {LoopbackAhaduApplication};
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new LoopbackAhaduApplication(options);
+  app.bodyParser(MultipartFormDataBodyParser);
   await app.boot();
   await app.start();
 

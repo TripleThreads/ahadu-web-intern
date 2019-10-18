@@ -47,29 +47,15 @@ export class ContactController {
           required: true,
           content: {
               'multipart/form-data': {
-                  'x-parser': 'stream',
                   schema: {type: 'object'},
               },
           },
       })
-        request: Request,
-      @inject(RestBindings.Http.RESPONSE) response: Response): Promise<Object> {
-        const upload = multer({dest: 'public/uploads/'});
-        return new Promise<object>((resolve, reject) => {
-            upload.any()(request, response, err => {
-                if (err) return reject(err);
-                const contact = new Contact();
-                try {
-                    contact['name'] = (request as any).body.name;
-                    contact['photo'] = (request as any).files[0].filename;
-                    contact['phone_number'] = (request as any).body.phone_number;
-                    return this.contactRepository.save(contact);
-                } catch (e) {
-                    return e;
-                }
-            });
-        });
+        body: unknown,
+    ) {
+        return body;
     }
+
 
     @secured(SecuredType.IS_AUTHENTICATED)
     @get('/contacts/count', {
@@ -179,36 +165,19 @@ export class ContactController {
         },
     })
 
-    async updateContact(
-      @param.path.string('id') id: string,
+    async UpdateContact(
       @requestBody({
           description: 'multipart/form-data value.',
           required: true,
           content: {
               'multipart/form-data': {
-                  'x-parser': 'stream',
                   schema: {type: 'object'},
               },
           },
       })
-        request: Request,
-      @inject(RestBindings.Http.RESPONSE) response: Response): Promise<Object> {
-        const upload = multer({dest: 'public/uploads/'});
-        return new Promise<object>((resolve, reject) => {
-            upload.any()(request, response, err => {
-                if (err) return reject(err);
-                const contact = new Contact();
-                try {
-                    contact['name'] = (request as any).body.name;
-                    contact['phone_number'] = (request as any).body.phone_number;
-                    contact['photo'] = (request as any).files[0].filename;
-                } catch (e) {
-                    return e;
-                } finally {
-                    this.contactRepository.updateById(id, contact);
-                }
-            });
-        });
+        body: unknown,
+    ) {
+        return body;
     }
 
     @secured(SecuredType.IS_AUTHENTICATED)

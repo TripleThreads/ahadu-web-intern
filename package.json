@@ -30,7 +30,8 @@
     "migrate": "node ./dist/migrate",
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "npm run test",
+    "start:watch": "tsc-watch --target es2017 --outDir ./dist --onSuccess \"node .\""
   },
   "repository": {
     "type": "git"
@@ -61,7 +62,8 @@
     "loopback-connector-mongodb": "^4.2.0",
     "multer": "^1.4.2",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "tsc-watch": "^4.0.0"
   },
   "devDependencies": {
     "@loopback/build": "^2.0.14",
