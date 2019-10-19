@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/*
+*auto-migration helps the user create relational database schemas based on definitions of their models
+* */
 const application_1 = require("./application");
 async function migrate(args) {
     const existingSchema = args.includes('--rebuild') ? 'drop' : 'alter';

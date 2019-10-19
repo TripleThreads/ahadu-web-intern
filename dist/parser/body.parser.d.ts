@@ -1,7 +1,7 @@
 /// <reference types="express" />
 /**
  * This class is multipart body parser
- * It is separated from other classes to use
+ * It is separated from other classes for a reuse
  *
  * **/
 import { BodyParser, Request, RequestBody } from '@loopback/rest';

@@ -1,6 +1,6 @@
 /**
  * This class is multipart body parser
- * It is separated from other classes to use
+ * It is separated from other classes for a reuse
  *
  * **/
 import {BodyParser, Request, RequestBody} from '@loopback/rest';
@@ -39,8 +39,12 @@ export class MultipartFormDataBodyParser implements BodyParser {
                 });
                 const contact = new Contact();
                 try {
-                    contact['name'] = (request as any).body.name;
-                    contact['phone_number'] = (request as any).body.phone_number;
+                    // copy all attributes
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    Object.keys((request as any).body).forEach((key) => {
+                        contact[key] = (request as any).body[key];
+                    });
+
                     contact['photo'] = (request as any).files[0].filename;
 
                     if (request.method === 'POST') {

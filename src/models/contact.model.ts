@@ -2,44 +2,74 @@ import {Entity, model, property} from '@loopback/repository';
 
 @model({settings: {strict: false}})
 export class Contact extends Entity {
-  @property({
-    type: 'number',
-    id: true,
-    generated: true,
-  })
-  id: string;
+    @property({
+        type: 'string',
+        id: true,
+        generated: true,
+    })
+    id: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  name: string;
+    @property({
+        type: 'string',
+        required: true,
+    })
+    name: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  phone_number: string;
+    @property({
+        type: 'string',
+        required: true,
+    })
+    city: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  photo: string;
+    @property({
+        type: 'string',
+        required: true,
+    })
+    sub_city: string;
 
-  // Define well-known properties here
+    @property({
+        type: 'string',
+        required: true,
+    })
+    house_number: string;
 
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
+    @property({
+        type: 'date',
+        required: true,
+    })
+    date_of_birth: string;
 
-  constructor(data?: Partial<Contact>) {
-    super(data);
-  }
+    @property({
+        type: 'string',
+        required: true,
+    })
+    phone_number: string;
+
+    @property({
+        type: 'string',
+        required: true,
+    })
+    photo: string;
+
+    @property({
+        type: 'boolean',
+        default: false,
+    })
+    is_favorite?: boolean;
+
+    // Define well-known properties here
+
+    // Indexer property to allow additional data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [prop: string]: any;
+
+    constructor(data?: Partial<Contact>) {
+        super(data);
+    }
 }
 
 export interface ContactRelations {
-  // describe navigational properties here
+    // describe navigational properties here
 }
 
 export type ContactWithRelations = Contact & ContactRelations;

@@ -1,3 +1,6 @@
+/*
+*auto-migration helps the user create relational database schemas based on definitions of their models
+* */
 import {LoopbackAhaduApplication} from './application';
 
 export async function migrate(args: string[]) {

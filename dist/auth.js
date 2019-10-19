@@ -22,7 +22,7 @@ const repository_1 = require("@loopback/repository");
 const passport_jwt_1 = require("passport-jwt");
 exports.JWT_STRATEGY_NAME = 'jwt';
 // the decorator function, every required param has its own default
-// so we can supply empty param when calling this decorartor.
+// so we can supply empty param when calling this decorator.
 // we will use 'secured' to match Spring Security annotation.
 function secured(type = SecuredType.IS_AUTHENTICATED, // more on this below
 roles = [], strategy = 'jwt', options) {
@@ -40,9 +40,7 @@ var SecuredType;
 (function (SecuredType) {
     SecuredType[SecuredType["IS_AUTHENTICATED"] = 0] = "IS_AUTHENTICATED";
     SecuredType[SecuredType["PERMIT_ALL"] = 1] = "PERMIT_ALL";
-    SecuredType[SecuredType["HAS_ANY_ROLE"] = 2] = "HAS_ANY_ROLE";
-    SecuredType[SecuredType["HAS_ROLES"] = 3] = "HAS_ROLES";
-    SecuredType[SecuredType["DENY_ALL"] = 4] = "DENY_ALL";
+    SecuredType[SecuredType["DENY_ALL"] = 2] = "DENY_ALL";
 })(SecuredType = exports.SecuredType || (exports.SecuredType = {}));
 // metadata provider for `MyAuthenticationMetadata`. Will supply method's metadata when injected
 let MyAuthMetadataProvider = class MyAuthMetadataProvider extends auth_metadata_provider_1.AuthMetadataProvider {
@@ -64,13 +62,13 @@ MyAuthMetadataProvider = __decorate([
 ], MyAuthMetadataProvider);
 exports.MyAuthMetadataProvider = MyAuthMetadataProvider;
 // the JWT_secret to encrypt and decrypt JWT token
-exports.JWT_SECRET = 'changeme';
+exports.JWT_SECRET = 'encrypt_me';
 // implement custom namespace bindings
 var MyAuthBindings;
 (function (MyAuthBindings) {
     MyAuthBindings.STRATEGY = core_1.BindingKey.create('authentication.strategy');
 })(MyAuthBindings = exports.MyAuthBindings || (exports.MyAuthBindings = {}));
-// the strategy provider will parse the specifed strategy, and act accordingly
+// the strategy provider will parse the specified strategy, and act accordingly
 let MyAuthAuthenticationStrategyProvider = class MyAuthAuthenticationStrategyProvider {
     constructor(metadata, userRepository) {
         this.metadata = metadata;
@@ -93,7 +91,7 @@ let MyAuthAuthenticationStrategyProvider = class MyAuthAuthenticationStrategyPro
             return new authentication_passport_1.StrategyAdapter(jwtStrategy, exports.JWT_STRATEGY_NAME);
         }
     }
-    // verify JWT token and decryot the payload.
+    // verify JWT token and decrypt the payload.
     // Then search user from database with id equals to payload's username.
     // if user is found, then verify its roles
     async verifyToken(payload, done) {
@@ -102,7 +100,7 @@ let MyAuthAuthenticationStrategyProvider = class MyAuthAuthenticationStrategyPro
             const user = await this.userRepository.findById(username);
             if (!user)
                 done(null, false);
-            done(null, { name: username, email: user.email, [security_1.securityId]: username });
+            done(null, { name: username, [security_1.securityId]: username });
         }
         catch (err) {
             if (err.name === 'UnauthorizedError')
@@ -124,6 +122,7 @@ let MyAuthActionProvider = class MyAuthActionProvider {
         this.setCurrentUser = setCurrentUser;
         this.getMetadata = getMetadata;
     }
+    //AuthenticateFn interface definition of a function which accepts a request and returns an authenticated user
     value() {
         return request => this.action(request);
     }

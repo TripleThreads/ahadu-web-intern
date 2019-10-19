@@ -39,8 +39,11 @@ let MultipartFormDataBodyParser = class MultipartFormDataBodyParser {
                 });
                 const contact = new models_1.Contact();
                 try {
-                    contact['name'] = request.body.name;
-                    contact['phone_number'] = request.body.phone_number;
+                    // copy all attributes
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    Object.keys(request.body).forEach((key) => {
+                        contact[key] = request.body[key];
+                    });
                     contact['photo'] = request.files[0].filename;
                     if (request.method === 'POST') {
                         return this.contactRepository.save(contact);

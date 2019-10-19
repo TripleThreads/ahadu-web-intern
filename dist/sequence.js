@@ -12,6 +12,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/*
+* A Sequence is a stateless grouping of Actions that control how a Server responds to requests.
+* */
 const context_1 = require("@loopback/context");
 const rest_1 = require("@loopback/rest");
 const authentication_1 = require("@loopback/authentication");

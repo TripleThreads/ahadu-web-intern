@@ -29,7 +29,7 @@ import {Request} from '@loopback/rest';
 export const JWT_STRATEGY_NAME = 'jwt';
 
 // the decorator function, every required param has its own default
-// so we can supply empty param when calling this decorartor.
+// so we can supply empty param when calling this decorator.
 // we will use 'secured' to match Spring Security annotation.
 export function secured(
   type: SecuredType = SecuredType.IS_AUTHENTICATED, // more on this below
@@ -50,8 +50,6 @@ export function secured(
 export enum SecuredType {
   IS_AUTHENTICATED, // any authenticated user
   PERMIT_ALL, // bypass security check, permit everyone
-  HAS_ANY_ROLE, // user must have one or more roles specified in the `roles` attribute
-  HAS_ROLES, // user mast have all roles specified in the `roles` attribute
   DENY_ALL, // you shall not pass!
 }
 
@@ -81,7 +79,7 @@ export class MyAuthMetadataProvider extends AuthMetadataProvider {
 }
 
 // the JWT_secret to encrypt and decrypt JWT token
-export const JWT_SECRET = 'changeme';
+export const JWT_SECRET = 'encrypt_me';
 
 // the required interface to filter login payload
 export interface Credentials {
@@ -94,7 +92,7 @@ export namespace MyAuthBindings {
   export const STRATEGY = BindingKey.create<AuthenticationStrategy | undefined>('authentication.strategy');
 }
 
-// the strategy provider will parse the specifed strategy, and act accordingly
+// the strategy provider will parse the specified strategy, and act accordingly
 export class MyAuthAuthenticationStrategyProvider implements Provider<AuthenticationStrategy | undefined> {
   constructor(
     @inject(AuthenticationBindings.METADATA) private metadata: MyAuthenticationMetadata,
@@ -124,7 +122,7 @@ export class MyAuthAuthenticationStrategyProvider implements Provider<Authentica
     }
   }
 
-  // verify JWT token and decryot the payload.
+  // verify JWT token and decrypt the payload.
   // Then search user from database with id equals to payload's username.
   // if user is found, then verify its roles
   async verifyToken(
@@ -136,7 +134,7 @@ export class MyAuthAuthenticationStrategyProvider implements Provider<Authentica
       const user = await this.userRepository.findById(username);
       if (!user) done(null, false);
 
-      done(null, {name: username, email: user.email, [securityId]: username});
+      done(null, {name: username, [securityId]: username});
     } catch (err) {
       if (err.name === 'UnauthorizedError') done(null, false);
       done(err, false);
@@ -152,7 +150,7 @@ export class MyAuthActionProvider implements Provider<AuthenticateFn> {
     @inject.getter(AuthenticationBindings.METADATA) readonly getMetadata: Getter<MyAuthenticationMetadata>,
   ) {
   }
-
+  //AuthenticateFn interface definition of a function which accepts a request and returns an authenticated user
   value(): AuthenticateFn {
     return request => this.action(request);
   }

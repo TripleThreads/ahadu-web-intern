@@ -17,7 +17,7 @@ let Contact = class Contact extends repository_1.Entity {
 };
 __decorate([
     repository_1.property({
-        type: 'number',
+        type: 'string',
         id: true,
         generated: true,
     }),
@@ -36,6 +36,34 @@ __decorate([
         required: true,
     }),
     __metadata("design:type", String)
+], Contact.prototype, "city", void 0);
+__decorate([
+    repository_1.property({
+        type: 'string',
+        required: true,
+    }),
+    __metadata("design:type", String)
+], Contact.prototype, "sub_city", void 0);
+__decorate([
+    repository_1.property({
+        type: 'string',
+        required: true,
+    }),
+    __metadata("design:type", String)
+], Contact.prototype, "house_number", void 0);
+__decorate([
+    repository_1.property({
+        type: 'date',
+        required: true,
+    }),
+    __metadata("design:type", String)
+], Contact.prototype, "date_of_birth", void 0);
+__decorate([
+    repository_1.property({
+        type: 'string',
+        required: true,
+    }),
+    __metadata("design:type", String)
 ], Contact.prototype, "phone_number", void 0);
 __decorate([
     repository_1.property({
@@ -44,6 +72,13 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Contact.prototype, "photo", void 0);
+__decorate([
+    repository_1.property({
+        type: 'boolean',
+        default: false,
+    }),
+    __metadata("design:type", Boolean)
+], Contact.prototype, "is_favorite", void 0);
 Contact = __decorate([
     repository_1.model({ settings: { strict: false } }),
     __metadata("design:paramtypes", [Object])

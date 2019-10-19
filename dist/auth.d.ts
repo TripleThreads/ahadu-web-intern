@@ -11,9 +11,7 @@ roles?: string[], strategy?: string, options?: object): MethodDecorator;
 export declare enum SecuredType {
     IS_AUTHENTICATED = 0,
     PERMIT_ALL = 1,
-    HAS_ANY_ROLE = 2,
-    HAS_ROLES = 3,
-    DENY_ALL = 4
+    DENY_ALL = 2
 }
 export interface MyAuthenticationMetadata extends AuthenticationMetadata {
     type: SecuredType;
@@ -25,7 +23,7 @@ export declare class MyAuthMetadataProvider extends AuthMetadataProvider {
     constructor(_controllerClass: Constructor<{}>, _methodName: string);
     value(): MyAuthenticationMetadata | undefined;
 }
-export declare const JWT_SECRET = "changeme";
+export declare const JWT_SECRET = "encrypt_me";
 export interface Credentials {
     username: string;
     password: string;
