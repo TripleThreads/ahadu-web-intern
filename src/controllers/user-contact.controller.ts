@@ -2,12 +2,15 @@ import {Count, CountSchema, Filter, repository, Where} from '@loopback/repositor
 import {del, get, getModelSchemaRef, getWhereSchemaFor, param, patch, post, requestBody} from '@loopback/rest';
 import {Contact} from '../models';
 import {UserRepository} from '../repositories';
+import {secured, SecuredType} from '../auth';
 
 export class UserContactController {
+
   constructor(
     @repository(UserRepository) protected userRepository: UserRepository,
   ) { }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @get('/users/{id}/contacts', {
     responses: {
       '200': {
@@ -27,6 +30,7 @@ export class UserContactController {
     return this.userRepository.contacts(id).find(filter);
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @post('/users/{id}/contacts', {
     responses: {
       200: {
@@ -56,6 +60,7 @@ export class UserContactController {
     return body;
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @patch('/users/{id}/contacts', {
     responses: {
       200: {
@@ -86,6 +91,7 @@ export class UserContactController {
     return body;
   }
 
+  @secured(SecuredType.IS_AUTHENTICATED)
   @del('/users/{id}/contacts', {
     responses: {
       '200': {
