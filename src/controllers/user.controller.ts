@@ -35,12 +35,11 @@ export class UserController {
 
     const tokenObject = {username: credentials.username};
     const token = await signAsync(tokenObject, JWT_SECRET);
-    const {id, email} = user;
+    const {username} = user;
 
     return {
       token,
-      id: id,
-      email,
+      id: username,
     };
   }
 }

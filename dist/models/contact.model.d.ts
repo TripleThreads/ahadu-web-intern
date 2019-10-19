@@ -9,6 +9,7 @@ export declare class Contact extends Entity {
     phone_number: string;
     photo: string;
     is_favorite?: boolean;
+    userId?: string;
     [prop: string]: any;
     constructor(data?: Partial<Contact>);
 }

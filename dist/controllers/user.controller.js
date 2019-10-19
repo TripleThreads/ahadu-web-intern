@@ -40,11 +40,10 @@ let UserController = class UserController {
             throw new rest_1.HttpErrors.Unauthorized('Invalid credentials');
         const tokenObject = { username: credentials.username };
         const token = await signAsync(tokenObject, auth_1.JWT_SECRET);
-        const { id, email } = user;
+        const { username } = user;
         return {
             token,
-            id: id,
-            email,
+            id: username,
         };
     }
 };

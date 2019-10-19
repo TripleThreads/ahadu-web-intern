@@ -10,14 +10,10 @@ import {
     post,
     put,
     requestBody,
-    RestBindings,
 } from '@loopback/rest';
 import {Contact} from '../models';
 import {ContactRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
-import {Request, Response} from 'express';
-import {inject} from '@loopback/context';
-import * as multer from 'multer';
 
 export class ContactController {
     constructor(

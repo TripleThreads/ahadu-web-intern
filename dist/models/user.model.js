@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
+const contact_model_1 = require("./contact.model");
 let User = class User extends repository_1.Entity {
     constructor(data) {
         super(data);
@@ -30,6 +31,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    repository_1.hasMany(() => contact_model_1.Contact),
+    __metadata("design:type", Array)
+], User.prototype, "contacts", void 0);
 User = __decorate([
     repository_1.model({ settings: { strict: false } }),
     __metadata("design:paramtypes", [Object])

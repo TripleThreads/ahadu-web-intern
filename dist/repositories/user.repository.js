@@ -17,13 +17,15 @@ const models_1 = require("../models");
 const datasources_1 = require("../datasources");
 const core_1 = require("@loopback/core");
 let UserRepository = class UserRepository extends repository_1.DefaultCrudRepository {
-    constructor(dataSource) {
+    constructor(dataSource, contactRepositoryGetter) {
         super(models_1.User, dataSource);
+        this.contactRepositoryGetter = contactRepositoryGetter;
+        this.contacts = this.createHasManyRepositoryFactoryFor('contacts', contactRepositoryGetter);
     }
 };
 UserRepository = __decorate([
-    __param(0, core_1.inject('datasources.mongodb')),
-    __metadata("design:paramtypes", [datasources_1.MongodbDataSource])
+    __param(0, core_1.inject('datasources.mongodb')), __param(1, repository_1.repository.getter('ContactRepository')),
+    __metadata("design:paramtypes", [datasources_1.MongodbDataSource, Function])
 ], UserRepository);
 exports.UserRepository = UserRepository;
 //# sourceMappingURL=user.repository.js.map

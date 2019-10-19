@@ -79,6 +79,12 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], Contact.prototype, "is_favorite", void 0);
+__decorate([
+    repository_1.property({
+        type: 'string',
+    }),
+    __metadata("design:type", String)
+], Contact.prototype, "userId", void 0);
 Contact = __decorate([
     repository_1.model({ settings: { strict: false } }),
     __metadata("design:paramtypes", [Object])

@@ -7,7 +7,6 @@ export declare class UserController {
     createUser(user: User): Promise<User>;
     login(credentials: Credentials): Promise<{
         token: any;
-        id: any;
-        email: any;
+        id: string;
     }>;
 }
