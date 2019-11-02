@@ -11,8 +11,10 @@ import {Contact} from '../models';
 
 import * as multer from 'multer';
 
+require('dotenv').config();
+
 const FORM_DATA = 'multipart/form-data';
-const IMAGE_UPLOAD_PATH = 'public/uploads';
+const IMAGE_UPLOAD_PATH = process.env.IMAGE_UPLOAD_PATH;
 
 export class MultipartFormDataBodyParser implements BodyParser {
     name = FORM_DATA;

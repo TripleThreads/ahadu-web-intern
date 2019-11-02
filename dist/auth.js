@@ -23,10 +23,11 @@ const passport_jwt_1 = require("passport-jwt");
 exports.JWT_STRATEGY_NAME = 'jwt';
 // the decorator function, every required param has its own default
 // so we can supply empty param when calling this decorator.
-// we will use 'secured' to match Spring Security annotation.
+// we will use 'secured' just like Spring Security annotation.
 function secured(type = SecuredType.IS_AUTHENTICATED, // more on this below
 roles = [], strategy = 'jwt', options) {
     // we will use a custom interface. more on this below
+    // Factory for method decorators
     return core_1.MethodDecoratorFactory.createDecorator(authentication_1.AUTHENTICATION_METADATA_KEY, {
         type,
         roles,
@@ -122,7 +123,7 @@ let MyAuthActionProvider = class MyAuthActionProvider {
         this.setCurrentUser = setCurrentUser;
         this.getMetadata = getMetadata;
     }
-    //AuthenticateFn interface definition of a function which accepts a request and returns an authenticated user
+    //returns AuthenticateFn, interface definition of a function which accepts a request and returns an authenticated user
     value() {
         return request => this.action(request);
     }
@@ -133,6 +134,11 @@ let MyAuthActionProvider = class MyAuthActionProvider {
         const strategy = await this.getStrategy();
         if (!strategy)
             return;
+        /**
+         * The ‘authenticate’ method takes in a given request and returns a user profile which is an instance of
+         * ‘UserProfile’. (A user profile is a minimal subset of a user object) If the user credentials are valid,
+         * this method should return a ‘UserProfile’ instance.
+         */
         const user = await strategy.authenticate(request);
         if (!user)
             return;
